@@ -10,7 +10,10 @@ import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.Option;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.TranslatableText;
+import net.toshimichi.thymine.options.Position;
 import net.toshimichi.thymine.options.ThymineOptions;
+
+import java.util.Arrays;
 
 public class ThymineOptionsScreen extends GameOptionsScreen {
 
@@ -31,7 +34,19 @@ public class ThymineOptionsScreen extends GameOptionsScreen {
                 CyclingOption.create("thymine.options.softSneak", p -> options().softSneak, (g, o, t) -> options().softSneak = t),
                 CyclingOption.create("thymine.options.forceIcon", p -> options().forceIcon, (g, o, t) -> options().forceIcon = t),
                 CyclingOption.create("thymine.options.antiSwim", p -> options().antiSwim, (g, o, t) -> options().antiSwim = t),
-                CyclingOption.create("thymine.options.potionHud", p -> options().potionHud, (g, o, t) -> options().potionHud = t),
+                CyclingOption.create("thymine.options.potionHud",
+                        Arrays.asList(Position.LEFT_TOP, Position.LEFT_BOTTOM, Position.RIGHT_TOP, Position.RIGHT_BOTTOM, Position.CENTER),
+                        p -> switch (p) {
+                            case LEFT_TOP -> new TranslatableText("thymine.options.potionHud.left_top");
+                            case LEFT_BOTTOM -> new TranslatableText("thymine.options.potionHud.left_bottom");
+                            case RIGHT_TOP -> new TranslatableText("thymine.options.potionHud.right_top");
+                            case RIGHT_BOTTOM -> new TranslatableText("thymine.options.potionHud.right_bottom");
+                            default -> new TranslatableText("options.off");
+                        }, g -> options().potionHudOptions.position,
+                        (g, o, v) -> {
+                            options().potionHudOptions.position = v;
+                            options().potionHud = (v != Position.CENTER);
+                        }),
                 CyclingOption.create("thymine.options.armorHud", p -> options().armorHud, (g, o, t) -> options().armorHud = t),
                 CyclingOption.create("thymine.options.noStatusOverlay", p -> options().noStatusOverlay, (g, o, t) -> options().noStatusOverlay = t),
                 new DoubleOption("thymine.options.lowFire", 0, 100, 1, p -> options().lowFire, (s, b) -> options().lowFire = b,

@@ -12,6 +12,10 @@
   "thymine.options.forceIcon": "ForceIcon",
   "thymine.options.antiSwim": "AntiSwim",
   "thymine.options.potionHud": "PotionHUD",
+  "thymine.options.potionHud.left_top": "Upper Left",
+  "thymine.options.potionHud.left_bottom": "Lower Left",
+  "thymine.options.potionHud.right_top": "Upper Right",
+  "thymine.options.potionHud.right_bottom": "Lower Right",
   "thymine.options.armorHud": "ArmorHUD",
   "thymine.options.noStatusOverlay": "NoStatusOverlay",
   "thymine.options.lowFire": "LowFire: %f%%"
