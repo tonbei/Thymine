@@ -18,7 +18,7 @@ public class InGameHudMixin {
     private final PotionHud potionHud = new PotionHud();
     private final ArmorHud armorHud = new ArmorHud();
 
-    @Inject(at = @At("TAIL"), method = "render(Lnet/minecraft/client/util/math/MatrixStack;F)V")
+    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;renderStatusEffectOverlay(Lnet/minecraft/client/util/math/MatrixStack;)V", shift = At.Shift.AFTER), method = "render(Lnet/minecraft/client/util/math/MatrixStack;F)V")
     public void render(MatrixStack stack, float f, CallbackInfo info) {
         if (!ThymineMod.getOptions().toggleSprintHud.isHidden() && ThymineMod.getOptions().toggleSprint) {
             toggleSprintHud.render(stack, f);
