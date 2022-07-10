@@ -18,15 +18,21 @@ public class ThymineMod implements ModInitializer {
 
     private static ThymineOptions options;
     private static KeyBinding sprintKeyBinding;
+    private static KeyBinding fullBrightKeyBinding;
 
     private static final File configFile = new File("config/thymine.json");
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
+    public static final double MAX_GAMMA = 15.0;
+
     @Override
     public void onInitialize() {
         sprintKeyBinding = new KeyBinding("thymine.options.toggleSprint", GLFW.GLFW_KEY_R, "thymine");
+        fullBrightKeyBinding = new KeyBinding("thymine.options.toggleFullBright", GLFW.GLFW_KEY_B, "thymine");
         KeyBindingHelper.registerKeyBinding(sprintKeyBinding);
+        KeyBindingHelper.registerKeyBinding(fullBrightKeyBinding);
         ClientTickEvents.START_CLIENT_TICK.register(new SprintStartTick());
+        ClientTickEvents.START_CLIENT_TICK.register(new FullBrightStartTick());
     }
 
     public static ThymineOptions getOptions() {
@@ -35,6 +41,10 @@ public class ThymineMod implements ModInitializer {
 
     public static KeyBinding getSprintKeyBinding() {
         return sprintKeyBinding;
+    }
+
+    public static KeyBinding getFullBrightKeyBinding() {
+        return fullBrightKeyBinding;
     }
 
     public static void saveOptions() {

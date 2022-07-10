@@ -1,5 +1,6 @@
 package net.toshimichi.thymine;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ScreenTexts;
 import net.minecraft.client.gui.screen.option.GameOptionsScreen;
@@ -10,6 +11,7 @@ import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.Option;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.TranslatableText;
+import net.toshimichi.thymine.options.FullBrightMode;
 import net.toshimichi.thymine.options.Position;
 import net.toshimichi.thymine.options.ThymineOptions;
 
@@ -25,7 +27,13 @@ public class ThymineOptionsScreen extends GameOptionsScreen {
 
     static {
         options = new Option[]{
-                CyclingOption.create("thymine.options.fullBright", p -> options().fullBright, (g, o, t) -> options().fullBright = t),
+                CyclingOption.create("thymine.options.fullBright", FullBrightMode.values(), p -> new TranslatableText(p.getTranslationKey()), g -> options().fullBrightMode,
+                        (g, o, v) -> {
+                            options().fullBrightMode = v;
+                            if (v.isGamma()) MinecraftClient.getInstance().options.gamma = ThymineMod.MAX_GAMMA;
+                            else MinecraftClient.getInstance().options.gamma = options().defaultGamma;
+                        }),
+                CyclingOption.create("thymine.options.fullBrightHud", p -> !options().fullBrightHud.isHidden(), (g, o, t) -> options().fullBrightHud.hidden = !t),
                 CyclingOption.create("thymine.options.fastSneak", p -> options().fastSneak, (g, o, t) -> options().fastSneak = t),
                 CyclingOption.create("thymine.options.toggleSprint", p -> options().toggleSprint, (g, o, t) -> options().toggleSprint = t),
                 CyclingOption.create("thymine.options.noHurtBobbing", p -> options().noHurtBobbing, (g, o, t) -> options().noHurtBobbing = t),

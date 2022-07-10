@@ -1,7 +1,9 @@
 package net.toshimichi.thymine.options;
 
 public class ThymineOptions {
-    public boolean fullBright;
+    public FullBrightMode fullBrightMode;
+    public boolean fullBrightToggle;
+    public double defaultGamma;
     public boolean fastSneak;
     public boolean shiftFix;
     public boolean toggleSprint;
@@ -17,9 +19,12 @@ public class ThymineOptions {
     public double lowFire;
     public ToggleSpringHudOptions toggleSprintHud;
     public PotionHudOptions potionHudOptions;
+    public FullBrightHudOptions fullBrightHud;
 
     public ThymineOptions() {
-        fullBright = true;
+        fullBrightMode = FullBrightMode.OFF;
+        fullBrightToggle = true;
+        defaultGamma = 1.0;
         fastSneak = false;
         shiftFix = true;
         toggleSprint = false;
@@ -43,5 +48,11 @@ public class ThymineOptions {
         potionHudOptions.y = 10;
         potionHudOptions.position = Position.LEFT_TOP;
         potionHudOptions.color = 0xE0E0E0;
+        fullBrightHud = new FullBrightHudOptions();
+        fullBrightHud.x = 200;
+        fullBrightHud.y = -15;
+        fullBrightHud.position = Position.CENTER_BOTTOM;
+        fullBrightHud.color = 0xE0E0E0;
+        fullBrightHud.hidden = false;
     }
 }

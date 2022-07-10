@@ -3,9 +3,11 @@ package net.toshimichi.thymine.mixin;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
 import net.toshimichi.thymine.ArmorHud;
+import net.toshimichi.thymine.FullBrightHud;
 import net.toshimichi.thymine.PotionHud;
 import net.toshimichi.thymine.ThymineMod;
 import net.toshimichi.thymine.ToggleSprintHud;
+import net.toshimichi.thymine.options.FullBrightMode;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -15,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class InGameHudMixin {
 
     private final ToggleSprintHud toggleSprintHud = new ToggleSprintHud();
+    private final FullBrightHud fullBrightHud = new FullBrightHud();
     private final PotionHud potionHud = new PotionHud();
     private final ArmorHud armorHud = new ArmorHud();
 
@@ -22,6 +25,9 @@ public class InGameHudMixin {
     public void render(MatrixStack stack, float f, CallbackInfo info) {
         if (!ThymineMod.getOptions().toggleSprintHud.isHidden() && ThymineMod.getOptions().toggleSprint) {
             toggleSprintHud.render(stack, f);
+        }
+        if (!ThymineMod.getOptions().fullBrightHud.isHidden() && ThymineMod.getOptions().fullBrightMode != FullBrightMode.OFF) {
+            fullBrightHud.render(stack, f);
         }
         if (ThymineMod.getOptions().potionHud) {
             potionHud.render(stack, f);

@@ -16,7 +16,7 @@ public class LivingEntityMixin {
 
     @Inject(at = @At("HEAD"), method = "hasStatusEffect(Lnet/minecraft/entity/effect/StatusEffect;)Z", cancellable = true)
     public void hasStatusEffect(StatusEffect effect, CallbackInfoReturnable<Boolean> info) {
-        if (ThymineMod.getOptions().fullBright) {
+        if (ThymineMod.getOptions().fullBrightMode.isNightVision()) {
             LivingEntity player = MinecraftClient.getInstance().player;
             if (player != null && player.equals(this) && effect == StatusEffects.NIGHT_VISION) {
                 info.setReturnValue(true);
@@ -27,7 +27,7 @@ public class LivingEntityMixin {
 
     @Inject(at = @At("HEAD"), method = "getStatusEffect(Lnet/minecraft/entity/effect/StatusEffect;)Lnet/minecraft/entity/effect/StatusEffectInstance;", cancellable = true)
     public void getStatusEffect(StatusEffect effect, CallbackInfoReturnable<StatusEffectInstance> info) {
-        if (ThymineMod.getOptions().fullBright) {
+        if (ThymineMod.getOptions().fullBrightMode.isNightVision()) {
             LivingEntity player = MinecraftClient.getInstance().player;
             if (player != null && player.equals(this) && effect == StatusEffects.NIGHT_VISION) {
                 info.setReturnValue(new StatusEffectInstance(StatusEffects.NIGHT_VISION, Integer.MAX_VALUE));
